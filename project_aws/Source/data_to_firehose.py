@@ -20,11 +20,10 @@ def get_data_from_openweathermap_api():
     Returns:
         byte_array: Data from API which is converted to bytes.
     """
-    today = date.today()
-    unix_current=int(time.mktime(today.timetuple()))
+    now = str(int(time.time()))
     base_url='http://api.openweathermap.org/data/2.5/air_pollution/history?lat=10.762622&lon=106.660172&start=1577836800&end='
     key='b60f0372e742bee4573835edf3732072'
-    url=base_url+str(unix_current)+'&appid='+key
+    url=base_url+now+'&appid='+key
     http = urllib3.PoolManager()
     response=http.request("GET", url)
     if response.status == 200:
@@ -115,4 +114,4 @@ def main(event, context):
     firehose_stream_name ='firehosestream'
     push_to_firehose(firehose_stream_name,list_data)
     return "succeed"
-    
+        
