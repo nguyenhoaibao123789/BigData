@@ -6,8 +6,9 @@ import glob
 import json
 from datetime import datetime, timedelta
 import boto3
+import pytz
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator
 
 
 ######################################################
@@ -72,7 +73,7 @@ def remove_in_local(source_place):
  ##########################################################
 
 default_args = {
-    "start_date": datetime(2022, 6, 2),
+    "start_date": (datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))- timedelta(hours = 1 )).strftime('%Y-%m-%d %H:%M:%S'),
     "catchup":False
 }
 
